@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เที่ยวเมืองไทย - Thailand Travel Gallery</title>
-    <!-- นำเข้า Tailwind CSS สำหรับการจัดตกแต่งที่รวดเร็วและสวยงาม -->
+    <title>สัตว์ที่ชอบ Gallery - รวมภาพสัตว์เลี้ยงน่ารัก</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- นำเข้า Font Google (Prompt) เพื่อให้ฟอนต์ภาษาไทยดูทันสมัย -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
@@ -18,65 +16,54 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- Header / ส่วนหัวของเว็บไซต์ -->
     <header class="bg-blue-600 text-white py-12 text-center shadow-md">
-        <h1 class="text-4xl font-bold mb-2">📷 Amazing Thailand Gallery</h1>
-        <p class="text-lg font-light text-blue-100">รวมภาพถ่ายสถานที่ท่องเที่ยวสุดประทับใจในเมืองไทย</p>
+        <h1 class="text-4xl font-bold mb-2">🐾 สัตว์ที่ชอบ Gallery</h1>
+        <p class="text-lg font-light text-blue-100">รวมภาพน่ารักๆ ของสัตว์เลี้ยงตัวโปรด</p>
     </header>
 
-    <!-- Main Content / ส่วนแสดงเนื้อหา -->
     <main class="container mx-auto px-4 py-10">
         
-        <!-- หมวดหมู่ (เดี๋ยวคุณมาปรับเปลี่ยนชื่อได้ตามใจชอบ) -->
         <div class="flex justify-center space-x-4 mb-10 overflow-x-auto py-2">
             <button class="bg-blue-500 text-white px-4 py-2 rounded-full shadow hover:bg-blue-600 transition">ทั้งหมด</button>
-            <button class="bg-white text-gray-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition">ทะเล</button>
-            <button class="bg-white text-gray-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition">ภูเขา / ดอย</button>
-            <button class="bg-white text-gray-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition">วัด / วัฒนธรรม</button>
+            <button class="bg-white text-gray-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition">สุนัข</button>
+            <button class="bg-white text-gray-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition">แมว</button>
+            <button class="bg-white text-gray-600 px-4 py-2 rounded-full shadow hover:bg-gray-100 transition">ชูการ์ไกลเดอร์</button>
         </div>
 
-        <!-- Grid แสดงรูปภาพ (Responsive: มือถือ 1 คอลัมน์, แท็บเล็ต 2, คอมพิวเตอร์ 3) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <!-- การ์ดสถานที่ที่ 1 -->
             <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300">
-                <!-- ส่วนรูปภาพ: เปลี่ยนตรง src="ที่อยู่รูปของคุณ" -->
-                <img src="https://f.ptcdn.info/730/040/000/o3ocon9hrzfr95P4kl3-o.jpg" alt="สามพันโบก" class="w-full h-64 object-cover">
+                <img src="https://puppyschool.co.uk/puppy-advice/questions-to-ask-when-buying-a-puppy" alt="ลูกสุนัข" class="w-full h-64 object-cover">
                 <div class="p-5">
-                    <span class="bg-red-100 text-red-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">วัด / วัฒนธรรม</span>
-                    <h3 class="text-xl font-bold mt-2 mb-1">สามพันโบก</h3>
-                    <p class="text-gray-500 text-sm">อุบลราชธานี</p>
+                    <span class="bg-yellow-100 text-yellow-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">สุนัข</span>
+                    <h3 class="text-xl font-bold mt-2 mb-1">ลูกสุนัข Golden Retriever</h3>
+                    <p class="text-gray-500 text-sm">เพื่อนซี้สี่ขาที่ซื่อสัตย์</p>
                 </div>
             </div>
 
-            <!-- การ์ดสถานที่ที่ 2 -->
             <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300">
-                <img src="https://www.krabipao.go.th/files/com_travel/2020-07_b6bbce1ec3c4e5b.jpg" alt="ทะเลภาคใต้" class="w-full h-64 object-cover">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBwDQhOAx_1ZzEmly2WRLX1G_mF0R_IGNcnkPVNp8ekQqTUUYzsFg_wRpP&s=10" alt="แมว" class="w-full h-64 object-cover">
                 <div class="p-5">
-                    <span class="bg-blue-100 text-blue-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">ทะเล</span>
-                    <h3 class="text-xl font-bold mt-2 mb-1">เกาะพีพี</h3>
-                    <p class="text-gray-500 text-sm">จังหวัดกระบี่</p>
+                    <span class="bg-blue-100 text-blue-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">แมว</span>
+                    <h3 class="text-xl font-bold mt-2 mb-1">แมวเปอร์เซียสุดนุ่ม</h3>
+                    <p class="text-gray-500 text-sm">เจ้านายขี้เซาประจำบ้าน</p>
                 </div>
             </div>
 
-            <!-- การ์ดสถานที่ที่ 3 -->
             <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300">
-                <img src="https://image-tc.galaxy.tf/wijpeg-sxrfid5inslt46adwg0pwpho/intanon.jpg" alt="ดอยอินทนนท์" class="w-full h-64 object-cover">
+                <img src="https://animals.sandiegozoo.org/sites/default/files/2019-04/sugarglider-closeup.jpg" alt="ชูการ์ไกลเดอร์" class="w-full h-64 object-cover">
                 <div class="p-5">
-                    <span class="bg-green-100 text-green-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">ภูเขา / ดอย</span>
-                    <h3 class="text-xl font-bold mt-2 mb-1">ดอยอินทนนท์</h3>
-                    <p class="text-gray-500 text-sm">จังหวัดเชียงใหม่</p>
+                    <span class="bg-green-100 text-green-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">ชูการ์ไกลเดอร์</span>
+                    <h3 class="text-xl font-bold mt-2 mb-1">ชูการ์ไกลเดอร์แสนซน</h3>
+                    <p class="text-gray-500 text-sm">นักร่อนตัวน้อยยามค่ำคืน</p>
                 </div>
             </div>
-
-            <!-- ยินดีด้วย! คุณสามารถก๊อปปี้บล็อกการ์ดด้านบน เพื่อเพิ่มสถานที่อื่นๆ ได้ตามต้องการเลยครับ -->
 
         </div>
     </main>
 
-    <!-- Footer / ส่วนท้ายของเว็บ -->
     <footer class="bg-gray-800 text-gray-400 text-center py-6 mt-12">
-        <p>© 2026 Thailand Travel Gallery. สร้างด้วยความภูมิใจเพื่อโปรโมทท่องเที่ยวไทย</p>
+        <p>© 2026 สัตว์ที่ชอบ Gallery. รวบรวมความน่ารักของสัตว์เลี้ยงด้วยความรัก</p>
     </footer>
 
 </body>
