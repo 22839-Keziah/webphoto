@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบบันทึกข้อมูลรูปแบบตาราง</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Helvetica Neue', Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 10px;
+        }
+        /* ฟอร์มกรอกข้อมูล */
+        .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .form-group input {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        .btn-add {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-add:hover {
+            background-color: #059669;
+        }
+        /* ส่วนของตาราง */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+        .no-data {
+            text-align: center;
+            color: #94a3b8;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📋 ระบบบันทึกข้อมูลสมาชิก</h2>
+    
+    <form id="dataForm" class="form-group">
+        <input type="text" id="nameInput" placeholder="ชื่อ-นามสกุล" required>
+        <input type="text" id="phoneInput" placeholder="เบอร์โทรศัพท์" required>
+        <input type="text" id="positionInput" placeholder="ตำแหน่ง/บทบาท" required>
+        <button type="submit" class="btn-add">+ เพิ่มข้อมูล</button>
+    </form>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 8%;">ลำดับ</th>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>เบอร์โทรศัพท์</th>
+                    <th>ตำแหน่ง</th>
+                    <th style="width: 12%; text-align: center;">จัดการ</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+        <div id="noDataMessage" class="no-data">ยังไม่มีข้อมูลในระบบ</div>
+    </div>
+</div>
+
+<script>
+    // ดึงองค์ประกอบต่างๆ จาก DOM
+    const dataForm = document.getElementById('dataForm');
+    const nameInput = document.getElementById('nameInput');
+    const phoneInput = document.getElementById('phoneInput');
+    const positionInput = document.getElementById('positionInput');
+    const tableBody = document.getElementById('tableBody');
+    const noDataMessage = document.getElementById('noDataMessage');
+
+    // โหลดข้อมูลเก่าจาก LocalStorage (ถ้ามี) หรือเริ่มจากอาร์เรย์ว่าง
+    let dataList = JSON.parse(localStorage.getItem('webTableData')) || [];
+
+    // ฟังก์ชันสำหรับแสดงผลตาราง
+    function renderTable() {
+        tableBody.innerHTML = '';
+        
+        if (dataList.length === 0) {
+            noDataMessage.style.display = 'block';
+            return;
+        } else {
+            noDataMessage.style.display = 'none';
+        }
+
+        dataList.forEach((item, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${escapeHtml(item.name)}</td>
+                <td>${escapeHtml(item.phone)}</td>
+                <td>${escapeHtml(item.position)}</td>
+                <td style="text-align: center;">
+                    <button class="btn-delete" onclick="deleteData(${index})">ลบ</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // ฟังก์ชันเพิ่มข้อมูลใหม่
+    dataForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // ป้องกันการรีเฟรชหน้าเว็บเมื่อกด submit
+
+        const newData = {
+            name: nameInput.value.trim(),
+            phone: phoneInput.value.trim(),
+            position: positionInput.value.trim()
+        };
+
+        dataList.push(newData);
+        saveData();
+        renderTable();
+
+        // เคลียร์ค่าในฟอร์มหลังบันทึก
+        dataForm.reset();
+        nameInput.focus();
+    });
+
+    // ฟังก์ชันลบข้อมูล
+    function deleteData(index) {
+        if(confirm('คุณแน่ใจใช่ไหมว่าจะลบข้อมูลแถวนี้?')) {
+            dataList.splice(index, 1);
+            saveData();
+            renderTable();
+        }
+    }
+
+    // ฟังก์ชันบันทึกข้อมูลลง LocalStorage
+    function saveData() {
+        localStorage.setItem('webTableData', JSON.stringify(dataList));
+    }
+
+    // ฟังก์ชันป้องกันการเจาะระบบผ่านการกรอกโค้ด (XSS Protection)
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    // สั่งให้แสดงผลตารางครั้งแรกตอนเปิดหน้าเว็บ
+    renderTable();
+</script>
+
+</body>
+</html>
